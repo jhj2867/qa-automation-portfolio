@@ -7,17 +7,17 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class UserApiTest {
 
-//    @Test
-//    public void getUserTest() {
-//
-//        given()
-//                .baseUri("https://reqres.in")
-//                .when()
-//                .get("/api/users/2")
-//                .then()
-//                .statusCode(200)
-//                .body("data.id", equalTo(2));
-//    }
+    @Test
+    public void getUserTest() {
+
+        given()
+                .baseUri("https://jsonplaceholder.typicode.com")
+                .when()
+                .get("/users/1")
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(1));
+    }
 
     @Test
     public void test1() {
