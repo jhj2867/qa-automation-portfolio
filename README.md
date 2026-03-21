@@ -1,4 +1,4 @@
-# HyunJun Cho
+# Hyun Jun Jo
 
 QA Engineer | Test Automation | API Testing
 
