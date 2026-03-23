@@ -1,7 +1,14 @@
 # Hyun Jun Jo
 
-📧 jhj2867@gmail.com · 🔗 [GitHub](https://github.com/jhj2867/qa-automation-portfolio)
-+82 010-5290-2876
+## Contact
+
+- **Email**: [jhj2867@gmail.com](mailto:jhj2867@gmail.com)
+- **Phone**: [+82-10-5290-2876](tel:+821052902876)
+
+## Links
+
+- **Portfolio**: https://jhj2867.github.io/qa-automation-portfolio/
+- **GitHub**: https://github.com/jhj2867
 
 ---
 
