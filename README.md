@@ -1,5 +1,4 @@
-# HyunJun Jo
-**QA Engineer · Test Automation · API Testing**
+# Hyun Jun Jo
 
 📧 jhj2867@gmail.com · 🔗 [GitHub](https://github.com/jhj2867/qa-automation-portfolio)
 +82 010-5290-2876
@@ -18,7 +17,7 @@
 
 ---
 
-## Skills
+# Skills
 
 ### Test Automation
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white)
