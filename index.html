@@ -37,7 +37,6 @@ body {
   overflow-x: hidden;
 }
 
-/* scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -75,12 +74,29 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.lang-toggle {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-mid);
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lang-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
 
 /* LAYOUT */
 .container {
   max-width: 1000px; margin: 0 auto; padding: 0 32px;
 }
-
 section { padding: 80px 0; }
 
 /* HERO */
@@ -262,6 +278,7 @@ section { padding: 80px 0; }
   color: var(--accent);
   font-family: var(--mono);
   font-size: 14px;
+  flex-shrink: 0;
 }
 
 /* EXPERIENCE */
@@ -327,6 +344,13 @@ section { padding: 80px 0; }
   margin-bottom: 16px;
   font-style: italic;
 }
+.exp-acq {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 16px;
+  font-family: var(--mono);
+}
 .exp-achievements { list-style: none; }
 .exp-achievements li {
   font-size: 13px;
@@ -348,6 +372,12 @@ section { padding: 80px 0; }
 }
 
 /* PROJECTS */
+.projects-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  font-style: italic;
+}
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -493,26 +523,24 @@ footer span { color: var(--accent); }
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">jhj2867</a>
-    <ul class="nav-links">
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#skills"      data-i18n="nav.skills"></a></li>
+        <li><a href="#experience"  data-i18n="nav.experience"></a></li>
+        <li><a href="#projects"    data-i18n="nav.projects"></a></li>
+      </ul>
+      <button class="lang-toggle" id="langToggle" onclick="toggleLang()"></button>
+    </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
   <div class="container">
-    <p class="hero-tag">// QA Engineer · Seoul, Korea</p>
-    <h1 class="hero-name">Hyun Jun <span>Jo</span></h1>
-    <p class="hero-sub">Test Automation · API Testing · SDET</p>
-    <p class="hero-desc">
-      2016년부터 <strong>반도체 EDA, 자동차, 국방</strong> 등 다양한 도메인에서 QA를 수행해 온 엔지니어입니다.<br>
-      단순한 버그 탐색을 넘어 <strong>테스트 자동화 프레임워크를 Zero-base로 설계·구축</strong>하여
-      팀의 검증 효율을 높이는 데 집중해 왔습니다.
-    </p>
+    <p class="hero-tag" data-i18n="hero.tag"></p>
+    <h1 class="hero-name" data-i18n="hero.name"></h1>
+    <p class="hero-sub" data-i18n="hero.sub"></p>
+    <p class="hero-desc" data-i18n="hero.desc"></p>
     <div class="hero-contacts">
       <a href="mailto:jhj2867@gmail.com">jhj2867@gmail.com</a>
       <a href="tel:+821052902876">010-5290-2876</a>
@@ -526,19 +554,19 @@ footer span { color: var(--accent); }
   <div class="stat-inner">
     <div class="stat">
       <div class="stat-num">9+</div>
-      <div class="stat-label">Years of QA Experience</div>
+      <div class="stat-label" data-i18n="stats.exp"></div>
     </div>
     <div class="stat">
       <div class="stat-num">800+</div>
-      <div class="stat-label">Automated Test Cases</div>
+      <div class="stat-label" data-i18n="stats.cases"></div>
     </div>
     <div class="stat">
       <div class="stat-num">70%↓</div>
-      <div class="stat-label">Test Time Reduction</div>
+      <div class="stat-label" data-i18n="stats.reduction"></div>
     </div>
     <div class="stat">
       <div class="stat-num">85%+</div>
-      <div class="stat-label">Test Coverage Maintained</div>
+      <div class="stat-label" data-i18n="stats.coverage"></div>
     </div>
   </div>
 </div>
@@ -548,51 +576,36 @@ footer span { color: var(--accent); }
   <div class="container">
     <div class="section-header">
       <span class="section-tag">01</span>
-      <h2 class="section-title">Skills</h2>
+      <h2 class="section-title" data-i18n="sections.skills"></h2>
       <div class="section-line"></div>
     </div>
     <div class="skills-grid">
+
       <div class="skill-card">
-        <div class="skill-card-title">Test Automation</div>
-        <ul class="skill-items">
-          <li>Java + Selenium + TestNG</li>
-          <li>BDD / Cucumber</li>
-          <li>Framework Zero-base 구축</li>
-          <li>UFT (윈도우 자동화)</li>
-        </ul>
+        <div class="skill-card-title" data-i18n="skills.automation.title"></div>
+        <ul class="skill-items" data-i18n-list="skills.automation.items"></ul>
       </div>
+
       <div class="skill-card">
-        <div class="skill-card-title">API Testing</div>
-        <ul class="skill-items">
-          <li>Rest Assured</li>
-          <li>REST API 기능/통합 테스트</li>
-          <li>API 테스트 자동화 설계</li>
-        </ul>
+        <div class="skill-card-title" data-i18n="skills.api.title"></div>
+        <ul class="skill-items" data-i18n-list="skills.api.items"></ul>
       </div>
+
       <div class="skill-card">
-        <div class="skill-card-title">CI / DevOps</div>
-        <ul class="skill-items">
-          <li>Jenkins CI 파이프라인</li>
-          <li>Linux 환경 운영</li>
-          <li>자동화 테스트 CI 연동</li>
-        </ul>
+        <div class="skill-card-title" data-i18n="skills.ci.title"></div>
+        <ul class="skill-items" data-i18n-list="skills.ci.items"></ul>
       </div>
+
       <div class="skill-card">
-        <div class="skill-card-title">QA Process</div>
-        <ul class="skill-items">
-          <li>테스트 전략 수립</li>
-          <li>기능/통합/회귀 테스트 설계</li>
-          <li>JIRA · Zephyr 활용</li>
-        </ul>
+        <div class="skill-card-title" data-i18n="skills.qa.title"></div>
+        <ul class="skill-items" data-i18n-list="skills.qa.items"></ul>
       </div>
+
       <div class="skill-card">
-        <div class="skill-card-title">Domain-specific</div>
-        <ul class="skill-items">
-          <li>CAN 통신 신호 테스트 (CANoe)</li>
-          <li>국방 SW 블랙박스 테스트</li>
-          <li>전장 부품 실물 검증</li>
-        </ul>
+        <div class="skill-card-title" data-i18n="skills.domain.title"></div>
+        <ul class="skill-items" data-i18n-list="skills.domain.items"></ul>
       </div>
+
     </div>
   </div>
 </section>
@@ -602,7 +615,7 @@ footer span { color: var(--accent); }
   <div class="container">
     <div class="section-header">
       <span class="section-tag">02</span>
-      <h2 class="section-title">Experience</h2>
+      <h2 class="section-title" data-i18n="sections.experience"></h2>
       <div class="section-line"></div>
     </div>
     <div class="exp-list">
@@ -610,83 +623,61 @@ footer span { color: var(--accent); }
       <div class="exp-item current">
         <div class="exp-left">
           <div class="exp-company">Synopsys Korea</div>
-          <div class="exp-period">2022.02 – 2025.05<br>3년 4개월</div>
-          <div class="exp-period" style="margin-top:8px; font-style:italic; color: var(--text-muted); font-size:10px;">(Bistel 인수에 따른 조직 통합)</div>
+          <div class="exp-period" data-i18n="exp.synopsys.period"></div>
+          <div class="exp-acq" data-i18n="exp.synopsys.acq"></div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">Senior QA Engineer</div>
-          <div class="exp-domain">웹 기반 반도체 공정 불량 분석 프로그램 검증</div>
-          <ul class="exp-achievements">
-            <li>Java + Selenium + TestNG + Rest Assured 기반 테스트 자동화 프레임워크 <strong>Zero-base 구축</strong></li>
-            <li><strong>800개 이상</strong>의 자동화 테스트 케이스 작성 및 Jenkins CI 연동</li>
-            <li>테스트 자동화 도입으로 <strong>테스트 수행 시간 70% 이상 단축</strong></li>
-            <li>테스트 커버리지 <strong>85% 이상</strong> 지속 유지</li>
-            <li>버그 검출률 향상 및 회귀 테스트 자동화로 릴리즈 품질 안정화</li>
-            <li>BDD(Cucumber) 기반 시나리오 설계로 개발팀과 품질 기준 공유 체계 구축</li>
-          </ul>
+          <div class="exp-role" data-i18n="exp.synopsys.role"></div>
+          <div class="exp-domain" data-i18n="exp.synopsys.domain"></div>
+          <ul class="exp-achievements" data-i18n-list="exp.synopsys.achievements"></ul>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-left">
           <div class="exp-company">Bistel</div>
-          <div class="exp-period">2020.01 – 2022.02<br>2년 2개월</div>
+          <div class="exp-period" data-i18n="exp.bistel.period"></div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">QA Engineer</div>
-          <div class="exp-domain">윈도우 기반 반도체 공정 불량 분석 서비스 QA</div>
-          <ul class="exp-achievements">
-            <li>윈도우 기반 서비스 기능 및 통합 테스트 수행</li>
-            <li>UFT 기반 윈도우 자동화 수행</li>
-            <li>기존 자동화 테스트 환경 개선 및 유지보수</li>
-            <li>테스트 케이스 설계 및 품질 이슈 분석, 개발팀 협업</li>
-          </ul>
+          <div class="exp-role" data-i18n="exp.bistel.role"></div>
+          <div class="exp-domain" data-i18n="exp.bistel.domain"></div>
+          <ul class="exp-achievements" data-i18n-list="exp.bistel.achievements"></ul>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-left">
           <div class="exp-company">Wise Automotive</div>
-          <div class="exp-period">2019.01 – 2020.01<br>1년 1개월</div>
+          <div class="exp-period" data-i18n="exp.wise.period"></div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">QA Engineer</div>
-          <div class="exp-domain">자동차 전장 부품 실물 검증</div>
-          <ul class="exp-achievements">
-            <li>불량 부품 수치 측정 및 품질 기준 검증</li>
-            <li>테스트 결과 데이터 분석 및 리포팅</li>
-          </ul>
+          <div class="exp-role" data-i18n="exp.wise.role"></div>
+          <div class="exp-domain" data-i18n="exp.wise.domain"></div>
+          <ul class="exp-achievements" data-i18n-list="exp.wise.achievements"></ul>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-left">
           <div class="exp-company">Motlab</div>
-          <div class="exp-period">2018.04 – 2019.01<br>10개월</div>
+          <div class="exp-period" data-i18n="exp.motlab.period"></div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">QA Engineer</div>
-          <div class="exp-domain">자동차 도메인 CAN 통신 신호 테스트</div>
-          <ul class="exp-achievements">
-            <li>CANoe 기반 CAN 통신 신호 테스트 (ICU, IBU 등 차량 제어 모듈)</li>
-            <li>차량 전장 부품 기능 검증 및 테스트 시나리오 설계</li>
-          </ul>
+          <div class="exp-role" data-i18n="exp.motlab.role"></div>
+          <div class="exp-domain" data-i18n="exp.motlab.domain"></div>
+          <ul class="exp-achievements" data-i18n-list="exp.motlab.achievements"></ul>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-left">
           <div class="exp-company">Moasoft</div>
-          <div class="exp-period">2016.08 – 2018.03<br>1년 8개월</div>
+          <div class="exp-period" data-i18n="exp.moasoft.period"></div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">QA Engineer</div>
-          <div class="exp-domain">소프트웨어 QA 전문 아웃소싱 · 국방 도메인</div>
-          <ul class="exp-achievements">
-            <li>국방 소프트웨어 블랙박스 기반 코드 테스트</li>
-            <li>CAN 통신 테스트 수행</li>
-            <li>다수 프로젝트 동시 QA 진행 경험</li>
-          </ul>
+          <div class="exp-role" data-i18n="exp.moasoft.role"></div>
+          <div class="exp-domain" data-i18n="exp.moasoft.domain"></div>
+          <ul class="exp-achievements" data-i18n-list="exp.moasoft.achievements"></ul>
         </div>
       </div>
 
@@ -699,14 +690,16 @@ footer span { color: var(--accent); }
   <div class="container">
     <div class="section-header">
       <span class="section-tag">03</span>
-      <h2 class="section-title">Projects</h2>
+      <h2 class="section-title" data-i18n="sections.projects"></h2>
       <div class="section-line"></div>
     </div>
+    <p class="projects-note" data-i18n="projects.note"></p>
     <div class="projects-grid">
+
       <div class="project-card">
-        <div class="project-status status-planned">🔜 예정</div>
-        <div class="project-name">UI Test Automation</div>
-        <div class="project-desc">Selenium + TestNG 기반 E2E 테스트 자동화 예시. BDD 시나리오 설계 포함.</div>
+        <div class="project-status status-planned" data-i18n="projects.status.planned"></div>
+        <div class="project-name" data-i18n="projects.ui.name"></div>
+        <div class="project-desc" data-i18n="projects.ui.desc"></div>
         <div class="project-stack">
           <span class="stack-tag">Java</span>
           <span class="stack-tag">Selenium</span>
@@ -714,10 +707,11 @@ footer span { color: var(--accent); }
           <span class="stack-tag">Cucumber</span>
         </div>
       </div>
+
       <div class="project-card">
-        <div class="project-status status-planned">🔜 예정</div>
-        <div class="project-name">REST API Test Automation</div>
-        <div class="project-desc">Rest Assured 기반 API 테스트 자동화 프레임워크 예시. 실무에서 구축한 패턴을 기반으로 설계.</div>
+        <div class="project-status status-planned" data-i18n="projects.status.planned"></div>
+        <div class="project-name" data-i18n="projects.api.name"></div>
+        <div class="project-desc" data-i18n="projects.api.desc"></div>
         <div class="project-stack">
           <span class="stack-tag">Java</span>
           <span class="stack-tag">Rest Assured</span>
@@ -725,16 +719,18 @@ footer span { color: var(--accent); }
           <span class="stack-tag">Jenkins</span>
         </div>
       </div>
+
       <div class="project-card">
-        <div class="project-status status-planned">🔜 예정</div>
-        <div class="project-name">QA Job Notifier</div>
-        <div class="project-desc">구직사이트 QA 채용공고 크롤링 후 카카오톡으로 매일 아침 자동 알림. 실사용 자동화 프로젝트.</div>
+        <div class="project-status status-planned" data-i18n="projects.status.planned"></div>
+        <div class="project-name" data-i18n="projects.notifier.name"></div>
+        <div class="project-desc" data-i18n="projects.notifier.desc"></div>
         <div class="project-stack">
           <span class="stack-tag">Python</span>
           <span class="stack-tag">Kakao API</span>
           <span class="stack-tag">Crawling</span>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -744,29 +740,369 @@ footer span { color: var(--accent); }
   <div class="container">
     <div class="section-header">
       <span class="section-tag">04</span>
-      <h2 class="section-title">Education &amp; Certification</h2>
+      <h2 class="section-title" data-i18n="sections.eduCert"></h2>
       <div class="section-line"></div>
     </div>
     <div class="info-grid">
+
       <div class="info-card">
-        <div class="info-card-label">Education</div>
-        <div class="info-card-title">연세대학교 미래캠퍼스 (원주)</div>
-        <div class="info-card-sub">컴퓨터정보통신공학과</div>
+        <div class="info-card-label" data-i18n="edu.label"></div>
+        <div class="info-card-title" data-i18n="edu.title"></div>
+        <div class="info-card-sub" data-i18n="edu.sub"></div>
         <div class="info-card-date">2008.03 – 2016.08</div>
       </div>
+
       <div class="info-card">
-        <div class="info-card-label">Certification</div>
+        <div class="info-card-label" data-i18n="cert.label"></div>
         <div class="info-card-title">ISTQB Foundation Level</div>
         <div class="info-card-sub">International Software Testing Qualifications Board</div>
         <div class="info-card-date">2017.08</div>
       </div>
+
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2025 <span>HyunJun Cho</span> · Built for GitHub Pages · Last updated 2025.03.24</p>
+  <p data-i18n="footer.text"></p>
 </footer>
 
+<script>
+// ─── Translations ────────────────────────────────────────────────────────────
+const T = {
+  ko: {
+    nav: {
+      skills: 'Skills',
+      experience: 'Experience',
+      projects: 'Projects',
+      contact: 'Contact',
+    },
+    hero: {
+      name: '조현준',
+      tag: '// QA Engineer · Seoul, Korea',
+      sub: 'Test Automation · API Testing · SDET',
+      desc: '2016년부터 <strong>반도체 EDA, 자동차, 국방</strong> 등 다양한 도메인에서 QA를 수행해 온 엔지니어입니다.<br>단순한 버그 탐색을 넘어 <strong>테스트 자동화 프레임워크를 Zero-base로 설계·구축</strong>하여 팀의 검증 효율을 높이는 데 집중해 왔습니다.',
+    },
+    stats: {
+      exp:       'Years of QA Experience',
+      cases:     'Automated Test Cases',
+      reduction: 'Test Time Reduction',
+      coverage:  'Test Coverage Maintained',
+    },
+    sections: {
+      skills:     'Skills',
+      experience: 'Experience',
+      projects:   'Projects',
+      eduCert:    'Education &amp; Certification',
+    },
+    skills: {
+      automation: {
+        title: 'Test Automation',
+        items: [
+          'Java + Selenium + TestNG',
+          'BDD / Cucumber',
+          'Framework Zero-base 구축',
+          'UFT (윈도우 자동화)',
+        ],
+      },
+      api: {
+        title: 'API Testing',
+        items: [
+          'Rest Assured',
+          'REST API 기능 / 통합 테스트',
+          'API 테스트 자동화 설계',
+        ],
+      },
+      ci: {
+        title: 'CI / DevOps',
+        items: [
+          'Jenkins CI 파이프라인',
+          'Linux 환경 운영',
+          '자동화 테스트 CI 연동',
+        ],
+      },
+      qa: {
+        title: 'QA Process',
+        items: [
+          '테스트 전략 수립',
+          '기능 / 통합 / 회귀 테스트 설계',
+          'JIRA · Zephyr 활용',
+        ],
+      },
+      domain: {
+        title: 'Domain-specific',
+        items: [
+          'CAN 통신 신호 테스트 (CANoe)',
+          '국방 SW 블랙박스 테스트',
+          '전장 부품 실물 검증',
+        ],
+      },
+    },
+    exp: {
+      synopsys: {
+        period:  '2022.02 – 2025.05<br>3년 4개월',
+        acq:     '(Bistel 인수에 따른 조직 통합)',
+        role:    'Senior QA Engineer',
+        domain:  '웹 기반 반도체 공정 불량 분석 플랫폼 QA',
+        achievements: [
+          'Java + Selenium + TestNG + Rest Assured 기반 테스트 자동화 프레임워크 <strong>Zero-base 구축</strong>',
+          '<strong>800개 이상</strong>의 자동화 테스트 케이스 작성 및 Jenkins CI 연동',
+          '테스트 자동화 도입으로 <strong>테스트 수행 시간 70% 이상 단축</strong>',
+          '테스트 커버리지 <strong>85% 이상</strong> 지속 유지',
+          '버그 검출률 향상 및 회귀 테스트 자동화로 릴리즈 품질 안정화',
+          'BDD(Cucumber) 기반 시나리오 설계로 개발팀과 품질 기준 공유 체계 구축',
+        ],
+      },
+      bistel: {
+        period:  '2020.01 – 2022.02<br>2년 2개월',
+        role:    'QA Engineer',
+        domain:  '윈도우 기반 반도체 공정 불량 분석 서비스 QA',
+        achievements: [
+          '윈도우 기반 서비스 기능 및 통합 테스트 수행',
+          'UFT 기반 윈도우 자동화 수행',
+          '기존 자동화 테스트 환경 개선 및 유지보수',
+          '테스트 케이스 설계 및 품질 이슈 분석, 개발팀 협업',
+        ],
+      },
+      wise: {
+        period:  '2019.01 – 2020.01<br>1년 1개월',
+        role:    'QA Engineer',
+        domain:  '자동차 전장 부품 실물 검증',
+        achievements: [
+          '불량 부품 수치 측정 및 품질 기준 검증',
+          '테스트 결과 데이터 분석 및 리포팅',
+        ],
+      },
+      motlab: {
+        period:  '2018.04 – 2019.01<br>10개월',
+        role:    'QA Engineer',
+        domain:  '자동차 도메인 CAN 통신 신호 테스트',
+        achievements: [
+          'CANoe 기반 CAN 통신 신호 테스트 (ICU, IBU 등 차량 제어 모듈)',
+          '차량 전장 부품 기능 검증 및 테스트 시나리오 설계',
+        ],
+      },
+      moasoft: {
+        period:  '2016.08 – 2018.03<br>1년 8개월',
+        role:    'QA Engineer',
+        domain:  '소프트웨어 QA 전문 아웃소싱 · 국방 도메인',
+        achievements: [
+          '국방 소프트웨어 블랙박스 기반 코드 테스트',
+          'CAN 통신 테스트 수행',
+          '다수 프로젝트 동시 QA 진행 경험',
+        ],
+      },
+    },
+    projects: {
+      note: '현재 구축 중입니다. 아래 프로젝트들이 순차적으로 업로드될 예정입니다.',
+      status: { planned: '🔜 예정' },
+      ui: {
+        name: 'UI Test Automation',
+        desc: 'Selenium + TestNG 기반 E2E 테스트 자동화 예시. BDD 시나리오 설계 포함.',
+      },
+      api: {
+        name: 'REST API Test Automation',
+        desc: 'Rest Assured 기반 API 테스트 자동화 프레임워크 예시. 실무에서 구축한 패턴을 기반으로 설계.',
+      },
+      notifier: {
+        name: 'QA Job Notifier',
+        desc: '구직사이트 QA 채용공고 크롤링 후 카카오톡으로 매일 아침 자동 알림. 실사용 자동화 프로젝트.',
+      },
+    },
+    edu: {
+      label: 'Education',
+      title: '연세대학교 미래캠퍼스 (원주)',
+      sub:   '컴퓨터정보통신공학과',
+    },
+    cert: { label: 'Certification' },
+    footer: {
+      text: '© 2025 <span>Hyun Jun Jo</span> · Built for GitHub Pages · 마지막 업데이트 2025.03.24',
+    },
+    langToggle: 'EN',
+  },
+
+  en: {
+    nav: {
+      skills: 'Skills',
+      experience: 'Experience',
+      projects: 'Projects',
+      contact: 'Contact',
+    },
+    hero: {
+      name: 'Hyun Jun <span>Jo</span>',
+      tag: '// QA Engineer · Seoul, Korea',
+      sub: 'Test Automation · API Testing · SDET',
+      desc: 'QA Engineer with <strong>9+ years of experience</strong> across semiconductor EDA, automotive, and defense domains.<br>I focus not only on finding defects but on <strong>designing and building test automation frameworks from scratch</strong> to improve overall QA efficiency.',
+    },
+    stats: {
+      exp:       'Years of QA Experience',
+      cases:     'Automated Test Cases',
+      reduction: 'Test Time Reduction',
+      coverage:  'Test Coverage Maintained',
+    },
+    sections: {
+      skills:     'Skills',
+      experience: 'Experience',
+      projects:   'Projects',
+      eduCert:    'Education &amp; Certification',
+    },
+    skills: {
+      automation: {
+        title: 'Test Automation',
+        items: [
+          'Java + Selenium + TestNG',
+          'BDD / Cucumber',
+          'Framework built from scratch',
+          'UFT (Windows automation)',
+        ],
+      },
+      api: {
+        title: 'API Testing',
+        items: [
+          'Rest Assured',
+          'REST API functional / integration testing',
+          'API test automation design',
+        ],
+      },
+      ci: {
+        title: 'CI / DevOps',
+        items: [
+          'Jenkins CI pipeline',
+          'Linux environment operations',
+          'CI integration for automated tests',
+        ],
+      },
+      qa: {
+        title: 'QA Process',
+        items: [
+          'Test strategy & planning',
+          'Functional / integration / regression test design',
+          'JIRA · Zephyr',
+        ],
+      },
+      domain: {
+        title: 'Domain-specific',
+        items: [
+          'CAN communication testing (CANoe)',
+          'Defense software black-box testing',
+          'Automotive component validation',
+        ],
+      },
+    },
+    exp: {
+      synopsys: {
+        period:  '2022.02 – 2025.05<br>3 yrs 4 mos',
+        acq:     '(Post-acquisition integration with Bistel)',
+        role:    'Senior QA Engineer',
+        domain:  'QA for a web-based semiconductor wafer analytics platform',
+        achievements: [
+          'Built a test automation framework from scratch <strong>(Java, Selenium, TestNG, Rest Assured)</strong>',
+          'Developed and maintained <strong>800+ automated test cases</strong> integrated with Jenkins CI',
+          'Reduced test execution time by <strong>over 70%</strong> through automation',
+          'Maintained over <strong>85% test coverage</strong>',
+          'Improved release quality by automating regression testing and increasing bug detection rate',
+          'Designed BDD-based test scenarios (Cucumber) to align quality standards with developers',
+        ],
+      },
+      bistel: {
+        period:  '2020.01 – 2022.02<br>2 yrs 2 mos',
+        role:    'QA Engineer',
+        domain:  'QA of a Windows-based semiconductor analytics system',
+        achievements: [
+          'Performed functional and integration testing for a Windows-based application',
+          'Conducted Windows UI automation using UFT',
+          'Improved and maintained existing test automation environment',
+          'Designed test cases and analyzed quality issues in collaboration with developers',
+        ],
+      },
+      wise: {
+        period:  '2019.01 – 2020.01<br>1 yr 1 mo',
+        role:    'QA Engineer',
+        domain:  'Automotive electronic component validation',
+        achievements: [
+          'Measured defective components and verified quality standards',
+          'Analyzed test data and generated reports',
+        ],
+      },
+      motlab: {
+        period:  '2018.04 – 2019.01<br>10 mos',
+        role:    'QA Engineer',
+        domain:  'CAN protocol testing in the automotive domain',
+        achievements: [
+          'Tested CAN communication signals using CANoe (ICU, IBU, and other vehicle control units)',
+          'Designed test scenarios for automotive electronic components',
+        ],
+      },
+      moasoft: {
+        period:  '2016.08 – 2018.03<br>1 yr 8 mos',
+        role:    'QA Engineer',
+        domain:  'Software QA outsourcing · Defense domain',
+        achievements: [
+          'Conducted black-box testing for defense software',
+          'Performed CAN communication testing',
+          'Managed QA activities across multiple concurrent projects',
+        ],
+      },
+    },
+    projects: {
+      note: 'Currently under development. The following projects will be added soon.',
+      status: { planned: '🔜 Planned' },
+      ui: {
+        name: 'UI Test Automation',
+        desc: 'E2E test automation example using Selenium and TestNG, with BDD scenario design.',
+      },
+      api: {
+        name: 'REST API Test Automation',
+        desc: 'API test automation framework example using Rest Assured, modeled on real-world patterns.',
+      },
+      notifier: {
+        name: 'QA Job Notifier',
+        desc: 'Crawls QA job postings from job sites and sends automated KakaoTalk notifications every morning.',
+      },
+    },
+    edu: {
+      label: 'Education',
+      title: 'Yonsei University, Mirae Campus (Wonju)',
+      sub:   'B.S. in Computer and Information Communication Engineering',
+    },
+    cert: { label: 'Certification' },
+    footer: {
+      text: '© 2025 <span>Hyun Jun Jo</span> · Built for GitHub Pages · Last updated 2025.03.24',
+    },
+    langToggle: 'KO',
+  },
+};
+
+// ─── i18n engine ─────────────────────────────────────────────────────────────
+function get(obj, path) {
+  return path.split('.').reduce((o, k) => (o != null ? o[k] : undefined), obj);
+}
+
+function applyLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = get(T[lang], el.dataset.i18n);
+    if (val !== undefined) el.innerHTML = val;
+  });
+
+  document.querySelectorAll('[data-i18n-list]').forEach(ul => {
+    const items = get(T[lang], ul.dataset.i18nList);
+    if (!Array.isArray(items)) return;
+    ul.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+  });
+
+  document.getElementById('langToggle').textContent = T[lang].langToggle;
+}
+
+function toggleLang() {
+  const next = document.documentElement.lang === 'ko' ? 'en' : 'ko';
+  applyLang(next);
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+applyLang(localStorage.getItem('lang') || 'ko');
+</script>
 </body>
 </html>
