@@ -94,7 +94,7 @@ I am currently aiming to grow into an **SDET (Software Development Engineer in T
 ## Experience
 
 ### Synopsys Korea
-**Senior QA Engineer** · 2022.02 – 2025.05
+**Senior QA Engineer** · 2022.02 – 2026.05
 
 *(Bistel 인수에 따른 조직 통합)*
 
