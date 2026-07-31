@@ -220,6 +220,7 @@ B.S. in Computer and Information Communication Engineering · Mar 2008 – Aug 2
 ## Certification
 
 **ISTQB Foundation Level** · 2017.08
+**정보처리기사
 
 ---
 
