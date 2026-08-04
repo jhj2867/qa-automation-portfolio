@@ -203,8 +203,46 @@ I am currently aiming to grow into an **SDET (Software Development Engineer in T
 | Project                  | Description                                                              | Skill                               | Status  |
 |--------------------------|--------------------------------------------------------------------------|-------------------------------------|---------|
 | REST API Test Automation | Based on Rest Assured and TestNG API Test automation example             | Java, Rest Assured, TestNG, Jenkins | Planned |
-| UI Test Automation       | Based on Cucumber and Selenium java E2E Test automation example          | Java, Selenium, TestNG, Cucumber    | Planned |
+| UI Test Automation       | Based on Cucumber and Selenium java E2E Test automation example          | Java, Selenium, JUnit, Cucumber     | Planned |
 | QA Job Notifier          | Crawl QA job postings from job sites → automate KakaoTalk notifications  | Python, Kakao API                   | Planned |
+
+---
+
+## Testing & CI
+
+두 프로젝트(API/UI)는 독립된 Maven 모듈이며, GitHub Actions에서 테스트가 자동 실행되고 결과 리포트까지 배포됩니다.  
+(Both sample projects are independent Maven modules; tests run automatically via GitHub Actions, and the results are published as a report.)
+
+### 로컬에서 테스트 실행 (Running tests locally)
+
+```bash
+# API 테스트 (api-test-automation-framework/ 에서)
+mvn test
+
+# UI 테스트 (ui-test-automation-saucedemo/ 에서)
+mvn test
+
+# 태그로 특정 시나리오만 실행 (UI 모듈)
+mvn test -Dcucumber.filter.tags="@TestCase-3"
+```
+
+### CI에서 자동 실행 (Automated in CI)
+
+- **`.github/workflows/tests.yml`** — `main`에 push/PR이 생길 때마다 두 모듈의 `mvn test`를 병렬로 실행해 빠르게 성공/실패를 확인  
+  (Runs `mvn test` for both modules in parallel on every push/PR to `main` for fast pass/fail feedback)
+- **`.github/workflows/pages.yml`** — `main`에 push되면 두 모듈 테스트를 다시 실행한 뒤 [Allure](https://allurereport.org/) 리포트를 생성하고, 포트폴리오 사이트와 함께 GitHub Pages에 배포  
+  (Re-runs both test suites, builds an Allure report, and deploys it together with the portfolio site to GitHub Pages)
+- UI 테스트는 GitHub Actions 러너(디스플레이 없음)에서 `CI` 환경변수를 감지해 Chrome을 headless로 실행  
+  (UI tests detect the `CI` env var and run Chrome headless on the runner)
+
+### 결과 확인 방법 (How to check results)
+
+- **Actions 탭**: [github.com/jhj2867/qa-automation-portfolio/actions](https://github.com/jhj2867/qa-automation-portfolio/actions)에서 각 실행의 성공/실패와 로그 확인  
+  (Check pass/fail status and logs for each run)
+- **Allure 리포트**: 최신 실행 결과와, 과거 실행과 비교하는 추이(Trend) 그래프까지 아래 링크에서 확인 가능  
+  (Latest results, including pass/fail trend across runs)
+  - API: https://jhj2867.github.io/qa-automation-portfolio/allure-report/api/
+  - UI: https://jhj2867.github.io/qa-automation-portfolio/allure-report/ui/
 
 ---
 
