@@ -13,11 +13,13 @@ public class CartSteps {
     @Then("the user can see the cart page")
     public void the_user_can_see_the_cart_page() {
         cartPage = new CartPage(DriverFactory.getDriver());
+        cartPage.waitUntilLoaded();
         Assertions.assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("cart.html"));
     }
 
     @Then("the cart page shows {int} item(s)")
     public void the_cart_page_shows_items(int expectedCount) {
+        cartPage.waitUntilItemCount(expectedCount);
         Assertions.assertEquals(expectedCount, cartPage.getItemCount());
     }
 

@@ -36,6 +36,10 @@ public class MainPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
+    public void waitUntilLoaded() {
+        wait.until(ExpectedConditions.urlContains("inventory.html"));
+    }
+
     public void clickSideBarButton() {
         driver.findElement(SIDE_BAR_BUTTON).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(ABOUT_BUTTON));

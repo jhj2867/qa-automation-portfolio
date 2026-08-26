@@ -21,6 +21,7 @@ public class MainPageSteps {
     @Given("the user can see main page")
     public void the_user_can_see_main_page() {
         mainPage = new MainPage(DriverFactory.getDriver());
+        mainPage.waitUntilLoaded();
         Assertions.assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("inventory.html"));
     }
 

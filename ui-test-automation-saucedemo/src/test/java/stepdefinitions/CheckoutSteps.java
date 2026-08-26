@@ -13,6 +13,7 @@ public class CheckoutSteps {
     @Then("the user can see the checkout information page")
     public void the_user_can_see_the_checkout_information_page() {
         checkoutPage = new CheckoutPage(DriverFactory.getDriver());
+        checkoutPage.waitUntilStepOneLoaded();
         Assertions.assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("checkout-step-one.html"));
     }
 
@@ -38,6 +39,7 @@ public class CheckoutSteps {
 
     @Then("the user can see the checkout overview page")
     public void the_user_can_see_the_checkout_overview_page() {
+        checkoutPage.waitUntilStepTwoLoaded();
         Assertions.assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("checkout-step-two.html"));
     }
 
@@ -53,6 +55,7 @@ public class CheckoutSteps {
 
     @Then("the user can see the checkout complete page")
     public void the_user_can_see_the_checkout_complete_page() {
+        checkoutPage.waitUntilCompleteLoaded();
         Assertions.assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("checkout-complete.html"));
         Assertions.assertEquals("Thank you for your order!", checkoutPage.getCompleteHeader());
     }

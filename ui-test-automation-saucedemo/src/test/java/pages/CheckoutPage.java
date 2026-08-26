@@ -2,10 +2,15 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CheckoutPage {
 
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     private static final By FIRST_NAME_INPUT = By.id("first-name");
     private static final By LAST_NAME_INPUT = By.id("last-name");
@@ -19,6 +24,11 @@ public class CheckoutPage {
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    }
+
+    public void waitUntilStepOneLoaded() {
+        wait.until(ExpectedConditions.urlContains("checkout-step-one.html"));
     }
 
     public void fillInformation(String firstName, String lastName, String postalCode) {
@@ -36,7 +46,12 @@ public class CheckoutPage {
     }
 
     public String getErrorMessage() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(ERROR_MESSAGE));
         return driver.findElement(ERROR_MESSAGE).getText();
+    }
+
+    public void waitUntilStepTwoLoaded() {
+        wait.until(ExpectedConditions.urlContains("checkout-step-two.html"));
     }
 
     public String getTotalLabel() {
@@ -45,6 +60,10 @@ public class CheckoutPage {
 
     public void clickFinish() {
         driver.findElement(FINISH_BUTTON).click();
+    }
+
+    public void waitUntilCompleteLoaded() {
+        wait.until(ExpectedConditions.urlContains("checkout-complete.html"));
     }
 
     public String getCompleteHeader() {
