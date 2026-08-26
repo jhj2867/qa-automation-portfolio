@@ -420,6 +420,11 @@ section { padding: 80px 0; }
   color: #ffb400;
   border: 1px solid rgba(255,180,0,0.2);
 }
+.status-done {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid rgba(0,229,160,0.25);
+}
 .project-name {
   font-size: 15px;
   font-weight: 700;
@@ -443,6 +448,35 @@ section { padding: 80px 0; }
   padding: 3px 8px;
   border-radius: 3px;
   letter-spacing: 0.03em;
+}
+.project-links {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px;
+}
+.project-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--text-mid);
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.project-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+.project-link-primary {
+  border-color: var(--accent) !important;
+  color: var(--bg) !important;
+  background: var(--accent) !important;
+  font-weight: 500;
+}
+.project-link-primary:hover {
+  background: var(--accent2) !important;
 }
 
 /* EDUCATION & CERT */
@@ -697,14 +731,20 @@ footer span { color: var(--accent); }
     <div class="projects-grid">
 
       <div class="project-card">
-        <div class="project-status status-planned" data-i18n="projects.status.planned"></div>
+        <div class="project-status status-done" data-i18n="projects.status.done"></div>
         <div class="project-name" data-i18n="projects.ui.name"></div>
         <div class="project-desc" data-i18n="projects.ui.desc"></div>
         <div class="project-stack">
           <span class="stack-tag">Java</span>
           <span class="stack-tag">Selenium</span>
-          <span class="stack-tag">JUnit</span>
           <span class="stack-tag">Cucumber</span>
+          <span class="stack-tag">JUnit 5</span>
+          <span class="stack-tag">Allure</span>
+          <span class="stack-tag">GitHub Actions</span>
+        </div>
+        <div class="project-links">
+          <a class="project-link-primary" href="https://jhj2867.github.io/qa-automation-portfolio/allure-report/ui/index.html" target="_blank" data-i18n="projects.links.report"></a>
+          <a href="https://github.com/jhj2867/qa-automation-portfolio/tree/main/ui-test-automation-saucedemo" target="_blank" data-i18n="projects.links.code"></a>
         </div>
       </div>
 
@@ -894,11 +934,12 @@ const T = {
       },
     },
     projects: {
-      note: '현재 구축 중입니다. 아래 프로젝트들이 순차적으로 업로드될 예정입니다.',
-      status: { planned: '🔜 예정' },
+      note: '실제로 설계·구현한 개인 자동화 프로젝트입니다. 프로젝트는 계속 추가될 예정입니다.',
+      status: { planned: '🔜 예정', done: '✅ 완료' },
+      links: { code: 'GitHub', report: 'Allure 리포트 ↗' },
       ui: {
-        name: 'UI Test Automation',
-        desc: 'Selenium + JUnit 기반 E2E 테스트 자동화 예시. BDD 시나리오 설계 포함.',
+        name: 'UI Test Automation (SauceDemo)',
+        desc: 'Selenium + Cucumber BDD로 구현한 SauceDemo E2E 자동화. Page Object 패턴, Allure 리포트, GitHub Actions CI 연동.',
       },
       api: {
         name: 'REST API Test Automation',
@@ -916,7 +957,7 @@ const T = {
     },
     cert: { label: 'Certification' },
     footer: {
-      text: '© 2025 <span>Hyun Jun Jo</span> · Built for GitHub Pages · 마지막 업데이트 2025.03.24',
+      text: '© 2026 <span>Hyun Jun Jo</span> · Built for GitHub Pages · 마지막 업데이트 2026.08.27',
     },
     langToggle: 'EN',
   },
@@ -1045,11 +1086,12 @@ const T = {
       },
     },
     projects: {
-      note: 'Currently under development. The following projects will be added soon.',
-      status: { planned: '🔜 Planned' },
+      note: 'Personal automation projects I\'ve actually designed and built. More will be added over time.',
+      status: { planned: '🔜 Planned', done: '✅ Done' },
+      links: { code: 'GitHub', report: 'Allure Report ↗' },
       ui: {
-        name: 'UI Test Automation',
-        desc: 'E2E test automation example using Selenium and JUnit, with BDD scenario design.',
+        name: 'UI Test Automation (SauceDemo)',
+        desc: 'SauceDemo E2E automation built with Selenium + Cucumber BDD. Page Object pattern, Allure reporting, GitHub Actions CI.',
       },
       api: {
         name: 'REST API Test Automation',
@@ -1067,7 +1109,7 @@ const T = {
     },
     cert: { label: 'Certification' },
     footer: {
-      text: '© 2025 <span>Hyun Jun Jo</span> · Built for GitHub Pages · Last updated 2025.03.24',
+      text: '© 2026 <span>Hyun Jun Jo</span> · Built for GitHub Pages · Last updated 2026.08.27',
     },
     langToggle: 'KO',
   },

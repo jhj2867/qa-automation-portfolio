@@ -18,6 +18,9 @@ public class LoginPage {
     @FindBy(id = "login-button")
     private WebElement loginButton;
 
+    @FindBy(css = "[data-test='error']")
+    private WebElement errorMessage;
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -27,5 +30,9 @@ public class LoginPage {
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginButton.click();
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.getText();
     }
 }

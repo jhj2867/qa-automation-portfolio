@@ -104,6 +104,14 @@
                 </configuration>
             </plugin>
 
+            <!-- 로컬에서 Allure CLI 설치 없이 target/allure-results로 리포트를 생성/서빙:
+                 mvn allure:report (정적 생성) 또는 mvn allure:serve (바로 열람) -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+            </plugin>
+
         </plugins>
     </build>
 

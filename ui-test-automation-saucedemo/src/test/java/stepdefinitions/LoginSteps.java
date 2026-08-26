@@ -25,4 +25,9 @@ public class LoginSteps {
     public void the_user_should_see_the_inventory_page() {
         Assertions.assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("inventory.html"));
     }
+
+    @Then("the user can see error msg {string} in login page")
+    public void the_user_can_see_error_msg_in_login_page(String expectedMessage) {
+        Assertions.assertEquals(expectedMessage, loginPage.getErrorMessage());
+    }
 }
